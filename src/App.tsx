@@ -65,6 +65,8 @@ const App = () => {
   return (
     <div className="bg-slate-500">
       {weather.weather[0].main}
+      <br />
+      {weather.weather[0].description}
       <img
         src={
           "https://openweathermap.org/img/wn/" +
