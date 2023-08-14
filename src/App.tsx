@@ -67,6 +67,8 @@ const App = () => {
       {weather.weather[0].main}
       <br />
       {weather.weather[0].description}
+      <br />
+      {"Temp: " + (weather.main.temp - 272.15).toPrecision(5)}
       <img
         src={
           "https://openweathermap.org/img/wn/" +
