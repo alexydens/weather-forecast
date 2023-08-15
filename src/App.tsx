@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BsGithub } from "react-icons/bs";
 
 const App = () => {
   const [weather, setWeather] = useState({
@@ -62,25 +63,20 @@ const App = () => {
         setWeather(data);
       });
   }, []);
-  // return (
-  //   <div className="bg-slate-500">
-  //     {weather.weather[0].main}
-  //     <br />
-  //     {weather.weather[0].description}
-  //     <br />
-  //     {"Temp: " + (weather.main.temp - 272.15).toPrecision(5)}
-  //     <img
-  //       src={
-  //         "https://openweathermap.org/img/wn/" +
-  //         weather.weather[0].icon +
-  //         "@2x.png"
-  //       }
-  //       alt="icon"
-  //     />
-  //   </div>
-  // );
+
   return (
     <div className="flex items-center justify-center bg-teal-100 w-full h-full absolute">
+      <div className="flex absolute top-0 left-0 rounded-xl shadow-lg bg-teal-50 p-3 hover:bg-slate-300 cursor-pointer select-none">
+        <a
+          href="https://github.com/alexydens/weather-forecast.git"
+          className="flex align-top gap-3"
+          target="_blank"
+          rel="noopener"
+        >
+          <BsGithub className="w-5 h-5" />
+          <p>Code</p>
+        </a>
+      </div>
       <div className="flex flex-col gap-3 p-5 bg-teal-400 rounded-xl shadow-lg text-center">
         <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200">
           <b className="text-xl">Weather in London, UK</b>
