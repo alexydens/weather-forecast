@@ -2,71 +2,108 @@ import { useEffect, useState } from "react";
 import { BsGithub } from "react-icons/bs";
 
 const App = () => {
-  const [weather, setWeather] = useState({
-    // some dummy data from the api's documentation to introduce all the fields
-    coord: {
-      lon: 10.99,
-      lat: 44.34,
-    },
-    weather: [
+  const [forecast, setForecast] = useState({
+    // Some dummy data from the api documentation to introduce all fields
+    cod: "200",
+    message: 0,
+    cnt: 40,
+    list: [
       {
-        id: 501,
-        main: "Rain",
-        description: "moderate rain",
-        icon: "10d",
+        dt: 1661871600,
+        main: {
+          temp: 296.76,
+          feels_like: 296.98,
+          temp_min: 296.76,
+          temp_max: 297.87,
+          pressure: 1015,
+          sea_level: 1015,
+          grnd_level: 933,
+          humidity: 69,
+          temp_kf: -1.11,
+        },
+        weather: [
+          {
+            id: 500,
+            main: "Rain",
+            description: "light rain",
+            icon: "10d",
+          },
+        ],
+        clouds: {
+          all: 100,
+        },
+        wind: {
+          speed: 0.62,
+          deg: 349,
+          gust: 1.18,
+        },
+        visibility: 10000,
+        pop: 0.32,
+        rain: {
+          "3h": 0.26,
+        },
+        sys: {
+          pod: "d",
+        },
+        dt_txt: "2022-08-30 15:00:00",
+      },
+      {
+        dt: 1661882400,
+        main: {
+          temp: 295.45,
+          feels_like: 295.59,
+          temp_min: 292.84,
+          temp_max: 295.45,
+          pressure: 1015,
+          sea_level: 1015,
+          grnd_level: 931,
+          humidity: 71,
+          temp_kf: 2.61,
+        },
+        weather: [
+          {
+            id: 500,
+            main: "Rain",
+            description: "light rain",
+            icon: "10n",
+          },
+        ],
+        clouds: {
+          all: 96,
+        },
+        wind: {
+          speed: 1.97,
+          deg: 157,
+          gust: 3.39,
+        },
+        visibility: 10000,
+        pop: 0.33,
+        rain: {
+          "3h": 0.57,
+        },
+        sys: {
+          pod: "n",
+        },
+        dt_txt: "2022-08-30 18:00:00",
       },
     ],
-    base: "stations",
-    main: {
-      temp: 298.48,
-      feels_like: 298.74,
-      temp_min: 297.56,
-      temp_max: 300.05,
-      pressure: 1015,
-      humidity: 64,
-      sea_level: 1015,
-      grnd_level: 933,
-    },
-    visibility: 10000,
-    wind: {
-      speed: 0.62,
-      deg: 349,
-      gust: 1.18,
-    },
-    rain: {
-      "1h": 3.16,
-    },
-    clouds: {
-      all: 100,
-    },
-    dt: 1661870592,
-    sys: {
-      type: 2,
-      id: 2075663,
-      country: "IT",
-      sunrise: 1661834187,
-      sunset: 1661882248,
-    },
-    timezone: 7200,
-    id: 3163858,
-    name: "Zocca",
-    cod: 200,
   });
+  const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => {
     fetch(
-      "https://api.openweathermap.org/data/2.5/weather?lat=51.50853&lon=-0.12574&appid=f47c8daefb3cc0c6c91903e89f44433a"
+      "https://api.openweathermap.org/data/2.5/forecast?lat=51.50853&lon=-0.12574&appid=f47c8daefb3cc0c6c91903e89f44433a"
     )
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        setWeather(data);
+        setForecast(data);
       });
   }, []);
 
   return (
-    <div className="flex items-center justify-center bg-teal-100 w-full h-full absolute">
-      <div className="flex absolute top-0 left-0 rounded-xl shadow-lg bg-teal-50 p-3 hover:bg-slate-300 cursor-pointer select-none">
+    <div className="flex items-center justify-center w-full h-full absolute bg-teal-100">
+      <div className="flex absolute top-0 left-0 rounded-xl shadow-xl bg-teal-50 p-3 hover:bg-slate-300 cursor-pointer select-none">
         <a
           href="https://github.com/alexydens/weather-forecast.git"
           className="flex align-top gap-3"
@@ -77,29 +114,51 @@ const App = () => {
           <p>Code</p>
         </a>
       </div>
-      <div className="flex flex-col gap-3 p-5 bg-teal-400 rounded-xl shadow-lg text-center">
-        <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200 select-none">
+      <div className="flex flex-col gap-3 p-5 bg-teal-400 rounded-xl shadow-xl text-center overflow-scroll h-3/4">
+        <div className="w-full p-3 rounded-xl shadow-xl bg-teal-200 select-none">
           <b className="text-xl">Weather in London, UK</b>
           <img
             src={
               "https://openweathermap.org/img/wn/" +
-              weather.weather[0].icon +
+              forecast.list[selectedIndex * 8].weather[0].icon +
               "@2x.png"
             }
             alt="icon"
             className="mx-auto"
           />
         </div>
-        <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200 select-none">
-          <b>Today</b>
+        <div className="w-full p-3 rounded-xl shadow-xl bg-teal-200 select-none">
+          <b>
+            {selectedIndex == 0
+              ? "Today"
+              : forecast.list[selectedIndex * 8].dt_txt.slice(0, 10)}
+          </b>
           <p>
-            {weather.weather[0].main} ({weather.weather[0].description})
+            {forecast.list[selectedIndex * 8].weather[0].main} (
+            {forecast.list[selectedIndex * 8].weather[0].description})
           </p>
           <p>
-            {(weather.main.temp - 272.15).toPrecision(2)}
+            {(forecast.list[selectedIndex * 8].main.temp - 272.15).toPrecision(
+              2
+            )}
             °C
           </p>
         </div>
+        {forecast.list
+          .filter((_, i) => i % 8 == 0)
+          .map((item, index) => {
+            return (
+              <div
+                className={
+                  "w-full p-3 rounded-xl shadow-xl select-none" +
+                  (selectedIndex == index ? " bg-teal-300" : " bg-teal-200")
+                }
+                onClick={() => setSelectedIndex(index)}
+              >
+                <b>{item.dt_txt.slice(0, 10)}</b>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
