@@ -78,7 +78,7 @@ const App = () => {
         </a>
       </div>
       <div className="flex flex-col gap-3 p-5 bg-teal-400 rounded-xl shadow-lg text-center">
-        <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200">
+        <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200 select-none">
           <b className="text-xl">Weather in London, UK</b>
           <img
             src={
@@ -90,7 +90,7 @@ const App = () => {
             className="mx-auto"
           />
         </div>
-        <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200">
+        <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200 select-none">
           <b>Today</b>
           <p>
             {weather.weather[0].main} ({weather.weather[0].description})
