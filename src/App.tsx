@@ -114,7 +114,7 @@ const App = () => {
           <p>Code</p>
         </a>
       </div>
-      <div className="flex flex-col gap-3 p-5 bg-teal-400 rounded-xl shadow-xl text-center overflow-scroll h-3/4">
+      <div className="flex flex-col gap-3 p-5 bg-teal-400 rounded-xl shadow-xl text-center overflow-scroll h-3/4 max-md:w-full max-md:h-full max-sm:w-full max-sm:h-full">
         <div className="w-full p-3 rounded-xl shadow-xl bg-teal-200 select-none">
           <b className="text-xl">Weather in London, UK</b>
           <img
