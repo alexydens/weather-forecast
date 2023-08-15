@@ -62,21 +62,49 @@ const App = () => {
         setWeather(data);
       });
   }, []);
+  // return (
+  //   <div className="bg-slate-500">
+  //     {weather.weather[0].main}
+  //     <br />
+  //     {weather.weather[0].description}
+  //     <br />
+  //     {"Temp: " + (weather.main.temp - 272.15).toPrecision(5)}
+  //     <img
+  //       src={
+  //         "https://openweathermap.org/img/wn/" +
+  //         weather.weather[0].icon +
+  //         "@2x.png"
+  //       }
+  //       alt="icon"
+  //     />
+  //   </div>
+  // );
   return (
-    <div className="bg-slate-500">
-      {weather.weather[0].main}
-      <br />
-      {weather.weather[0].description}
-      <br />
-      {"Temp: " + (weather.main.temp - 272.15).toPrecision(5)}
-      <img
-        src={
-          "https://openweathermap.org/img/wn/" +
-          weather.weather[0].icon +
-          "@2x.png"
-        }
-        alt="icon"
-      />
+    <div className="flex items-center justify-center bg-teal-100 w-full h-full absolute">
+      <div className="flex flex-col gap-3 p-5 bg-teal-400 rounded-xl shadow-lg text-center">
+        <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200">
+          <b className="text-xl">Weather in London, UK</b>
+          <img
+            src={
+              "https://openweathermap.org/img/wn/" +
+              weather.weather[0].icon +
+              "@2x.png"
+            }
+            alt="icon"
+            className="mx-auto"
+          />
+        </div>
+        <div className="w-full p-3 rounded-xl shadow-lg bg-teal-200">
+          <b>Today</b>
+          <p>
+            {weather.weather[0].main} ({weather.weather[0].description})
+          </p>
+          <p>
+            {(weather.main.temp - 272.15).toPrecision(2)}
+            °C
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
