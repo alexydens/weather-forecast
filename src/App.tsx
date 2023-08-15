@@ -102,8 +102,8 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center w-full h-full absolute bg-teal-100">
-      <div className="flex absolute top-0 left-0 rounded-xl shadow-xl bg-teal-50 p-3 hover:bg-slate-300 cursor-pointer select-none">
+    <div className="flex items-center justify-center w-full h-full absolute bg-blue-100">
+      <div className="flex absolute top-0 left-0 rounded-xl shadow-xl bg-blue-50 p-3 hover:bg-slate-300 cursor-pointer select-none">
         <a
           href="https://github.com/alexydens/weather-forecast.git"
           className="flex align-top gap-3"
@@ -114,8 +114,8 @@ const App = () => {
           <p>Code</p>
         </a>
       </div>
-      <div className="flex flex-col gap-3 p-5 bg-teal-400 rounded-xl shadow-xl text-center overflow-scroll h-3/4">
-        <div className="w-full p-3 rounded-xl shadow-xl bg-teal-200 select-none">
+      <div className="flex flex-col gap-3 p-5 bg-blue-400 rounded-xl shadow-xl text-center overflow-scroll h-3/4">
+        <div className="w-full p-3 rounded-xl shadow-xl bg-blue-200 select-none">
           <b className="text-xl">Weather in London, UK</b>
           <img
             src={
@@ -127,7 +127,7 @@ const App = () => {
             className="mx-auto"
           />
         </div>
-        <div className="w-full p-3 rounded-xl shadow-xl bg-teal-200 select-none">
+        <div className="w-full p-3 rounded-xl shadow-xl bg-blue-200 select-none">
           <b>
             {selectedIndex == 0
               ? "Today"
@@ -151,7 +151,7 @@ const App = () => {
               <div
                 className={
                   "w-full p-3 rounded-xl shadow-xl select-none" +
-                  (selectedIndex == index ? " bg-teal-300" : " bg-teal-200")
+                  (selectedIndex == index ? " bg-blue-300" : " bg-blue-200")
                 }
                 onClick={() => setSelectedIndex(index)}
               >
