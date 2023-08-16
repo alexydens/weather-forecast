@@ -96,20 +96,31 @@ const App = () => {
     let latitude = prompt(
       "Enter the latitude of the place you want the forecast for."
     );
-    fetch(
-      //"https://api.openweathermap.org/data/2.5/forecast?lat=51.50853&lon=-0.12574&appid=f47c8daefb3cc0c6c91903e89f44433a"
-      "https://api.openweathermap.org/data/2.5/forecast?lat=" +
-        latitude +
-        "&lon=" +
-        longditude +
-        "4&appid=f47c8daefb3cc0c6c91903e89f44433a"
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setForecast(data);
-      });
+    if (latitude == "") {
+      fetch(
+        "https://api.openweathermap.org/data/2.5/forecast?lat=51.50853&lon=-0.12574&appid=f47c8daefb3cc0c6c91903e89f44433a"
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          setForecast(data);
+        });
+    } else {
+      fetch(
+        "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+          latitude +
+          "&lon=" +
+          longditude +
+          "&appid=f47c8daefb3cc0c6c91903e89f44433a"
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          setForecast(data);
+        });
+    }
   }, []);
 
   return (
