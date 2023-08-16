@@ -88,15 +88,12 @@ const App = () => {
       },
     ],
   });
+  const [currentCity, setCurrentCity] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => {
-    let longditude = prompt(
-      "Enter the longditude of the place you want the forecast for."
-    );
-    let latitude = prompt(
-      "Enter the latitude of the place you want the forecast for."
-    );
-    if (latitude == "") {
+    let city = prompt("What city do you want the forecast for?");
+
+    if (city == "") {
       fetch(
         "https://api.openweathermap.org/data/2.5/forecast?lat=51.50853&lon=-0.12574&appid=f47c8daefb3cc0c6c91903e89f44433a"
       )
@@ -106,12 +103,11 @@ const App = () => {
         .then((data) => {
           setForecast(data);
         });
+      setCurrentCity("London");
     } else {
       fetch(
-        "https://api.openweathermap.org/data/2.5/forecast?lat=" +
-          latitude +
-          "&lon=" +
-          longditude +
+        "https://api.openweathermap.org/data/2.5/forecast?q=" +
+          city +
           "&appid=f47c8daefb3cc0c6c91903e89f44433a"
       )
         .then((response) => {
@@ -120,6 +116,7 @@ const App = () => {
         .then((data) => {
           setForecast(data);
         });
+      setCurrentCity(city === null ? "" : city);
     }
   }, []);
 
@@ -139,7 +136,7 @@ const App = () => {
       <div className="flex flex-col gap-3 p-5 bg-blue-400 rounded-xl shadow-xl text-center overflow-scroll h-3/4 min-w-[275px]">
         <div className="w-full p-3 rounded-xl shadow-xl bg-blue-200 select-none">
           {/* <b className="text-xl">Weather in London, UK</b> */}
-          <b className="text-xl">Weather</b>
+          <b className="text-xl">Weather in {currentCity}</b>
           <img
             src={
               "https://openweathermap.org/img/wn/" +
@@ -177,6 +174,7 @@ const App = () => {
                   (selectedIndex == index ? " bg-blue-300" : " bg-blue-200")
                 }
                 onClick={() => setSelectedIndex(index)}
+                key={"Forecast: " + index}
               >
                 <b>{item.dt_txt.slice(0, 10)}</b>
               </div>
