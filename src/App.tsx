@@ -90,8 +90,19 @@ const App = () => {
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => {
+    let longditude = prompt(
+      "Enter the longditude of the place you want the forecast for."
+    );
+    let latitude = prompt(
+      "Enter the latitude of the place you want the forecast for."
+    );
     fetch(
-      "https://api.openweathermap.org/data/2.5/forecast?lat=51.50853&lon=-0.12574&appid=f47c8daefb3cc0c6c91903e89f44433a"
+      //"https://api.openweathermap.org/data/2.5/forecast?lat=51.50853&lon=-0.12574&appid=f47c8daefb3cc0c6c91903e89f44433a"
+      "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+        latitude +
+        "&lon=" +
+        longditude +
+        "4&appid=f47c8daefb3cc0c6c91903e89f44433a"
     )
       .then((response) => {
         return response.json();
@@ -114,9 +125,10 @@ const App = () => {
           <p>Code</p>
         </a>
       </div>
-      <div className="flex flex-col gap-3 p-5 bg-blue-400 rounded-xl shadow-xl text-center overflow-scroll h-3/4">
+      <div className="flex flex-col gap-3 p-5 bg-blue-400 rounded-xl shadow-xl text-center overflow-scroll h-3/4 min-w-[275px]">
         <div className="w-full p-3 rounded-xl shadow-xl bg-blue-200 select-none">
-          <b className="text-xl">Weather in London, UK</b>
+          {/* <b className="text-xl">Weather in London, UK</b> */}
+          <b className="text-xl">Weather</b>
           <img
             src={
               "https://openweathermap.org/img/wn/" +
