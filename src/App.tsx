@@ -2,92 +2,7 @@ import { useEffect, useState } from "react";
 import { BsGithub } from "react-icons/bs";
 
 const App = () => {
-  const [forecast, setForecast] = useState({
-    // Some dummy data from the api documentation to introduce all fields
-    cod: "200",
-    message: 0,
-    cnt: 40,
-    list: [
-      {
-        dt: 1661871600,
-        main: {
-          temp: 296.76,
-          feels_like: 296.98,
-          temp_min: 296.76,
-          temp_max: 297.87,
-          pressure: 1015,
-          sea_level: 1015,
-          grnd_level: 933,
-          humidity: 69,
-          temp_kf: -1.11,
-        },
-        weather: [
-          {
-            id: 500,
-            main: "Rain",
-            description: "light rain",
-            icon: "10d",
-          },
-        ],
-        clouds: {
-          all: 100,
-        },
-        wind: {
-          speed: 0.62,
-          deg: 349,
-          gust: 1.18,
-        },
-        visibility: 10000,
-        pop: 0.32,
-        rain: {
-          "3h": 0.26,
-        },
-        sys: {
-          pod: "d",
-        },
-        dt_txt: "2022-08-30 15:00:00",
-      },
-      {
-        dt: 1661882400,
-        main: {
-          temp: 295.45,
-          feels_like: 295.59,
-          temp_min: 292.84,
-          temp_max: 295.45,
-          pressure: 1015,
-          sea_level: 1015,
-          grnd_level: 931,
-          humidity: 71,
-          temp_kf: 2.61,
-        },
-        weather: [
-          {
-            id: 500,
-            main: "Rain",
-            description: "light rain",
-            icon: "10n",
-          },
-        ],
-        clouds: {
-          all: 96,
-        },
-        wind: {
-          speed: 1.97,
-          deg: 157,
-          gust: 3.39,
-        },
-        visibility: 10000,
-        pop: 0.33,
-        rain: {
-          "3h": 0.57,
-        },
-        sys: {
-          pod: "n",
-        },
-        dt_txt: "2022-08-30 18:00:00",
-      },
-    ],
-  });
+  const [forecast, setForecast] = useState<any>(0);
   const [currentCity, setCurrentCity] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => {
@@ -140,7 +55,9 @@ const App = () => {
           <img
             src={
               "https://openweathermap.org/img/wn/" +
-              forecast.list[selectedIndex * 8].weather[0].icon +
+              (forecast != 0
+                ? forecast.list[selectedIndex * 8].weather[0].icon
+                : "1d") +
               "@2x.png"
             }
             alt="icon"
@@ -154,32 +71,42 @@ const App = () => {
               : forecast.list[selectedIndex * 8].dt_txt.slice(0, 10)}
           </b>
           <p>
-            {forecast.list[selectedIndex * 8].weather[0].main} (
-            {forecast.list[selectedIndex * 8].weather[0].description})
+            {forecast != 0
+              ? forecast.list[selectedIndex * 8].weather[0].main
+              : ""}
+            (
+            {forecast != 0
+              ? forecast.list[selectedIndex * 8].weather[0].description
+              : ""}
+            )
           </p>
           <p>
-            {(forecast.list[selectedIndex * 8].main.temp - 272.15).toPrecision(
-              2
-            )}
+            {forecast != 0
+              ? (
+                  forecast.list[selectedIndex * 8].main.temp - 272.15
+                ).toPrecision(2)
+              : " "}
             °C
           </p>
         </div>
-        {forecast.list
-          .filter((_, i) => i % 8 == 0)
-          .map((item, index) => {
-            return (
-              <div
-                className={
-                  "w-full p-3 rounded-xl shadow-xl select-none" +
-                  (selectedIndex == index ? " bg-blue-300" : " bg-blue-200")
-                }
-                onClick={() => setSelectedIndex(index)}
-                key={"Forecast: " + index}
-              >
-                <b>{item.dt_txt.slice(0, 10)}</b>
-              </div>
-            );
-          })}
+        {forecast != 0
+          ? forecast.list
+              .filter((_: any, i: number) => i % 8 == 0)
+              .map((item: any, index: number) => {
+                return (
+                  <div
+                    className={
+                      "w-full p-3 rounded-xl shadow-xl select-none" +
+                      (selectedIndex == index ? " bg-blue-300" : " bg-blue-200")
+                    }
+                    onClick={() => setSelectedIndex(index)}
+                    key={"Forecast: " + index}
+                  >
+                    <b>{item.dt_txt.slice(0, 10)}</b>
+                  </div>
+                );
+              })
+          : " "}
       </div>
     </div>
   );
